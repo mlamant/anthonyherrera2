@@ -17,7 +17,7 @@ function functionThree()
 	document.getElementById("words").style.color = "#000000";
 	document.getElementById("words").style.textDecoration = "none";
 	document.getElementById("words").style.fontSize = "initial";
-
+	document.getElementById("words").style.textTransform = "initial";
 }
 function functionFour()
 {
