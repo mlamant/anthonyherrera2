@@ -1,34 +1,188 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-	<title>Fancify Shamcify</title>
-        <script type="text/javascript" src="fancifymytext.js"></script>
+
+<title>Anthony Herrera's website</title>
+
 </head>
 
 <body>
-  <fieldset>
-	<legend>Text</legend>
-        <h1>Fancify my Text</h1>
-	<textarea id= "words"  rows = "4" cols = "30" name = "Text" ></textarea>
-  </fieldset>
-  <fieldset>
-    <legend>Fancify</legend>
 
-    <button onclick="myFunction()">Bigger!</button>
-    <br>
+<center><h1>Anthony Herrera's website</h1></center>
 
-    <input type="radio" onchange="functionTwo()" id="option1" name="Fancify">
-    <label for="option1">FancyShmancy</label><br/>
+<p style="font-size:160%;">About me</p>
+<p>My name is Anthony Herrera. Some of my interests are playing video games and watching anime. Although I am not sure what my career goal is, I know I want to work somewhere in the computer fields.
+For my programming experience, I mostly know Java. In the past, I have used C++, but it has been a while since I learned that language. The languages I would like to learn more about are C++ and HTML.</p>
+<p>Email: anthonyherrera2@csus.edu</p>
+<p>Languages I know: Java</p>
+<p>Languages I like to learn: C++ and HTML</p>
+<p style="font-size:160%;">Favorite thing:</p>
+<img src="Nintendo_Switch.jpg" alt="Nintendo Switch" width="500" height="300">
+<p style="font-size:160%;">Terms:</p>
+<p>1)Syntax is when symbols are used to create programs that define the relationship between the components.</p>
+<p>2)Semantics is the computer's action when a program executes.</p>
+<p>3)Lexical scanning takes the syntaxes and breaks them into a series of tokens.</p>
+<p>4)Parsing and parser creates a derivation tree from the token list based on the BNF defintion.</p>
+<p style="font-size:160%;">PL Assignment 3 Question 6</p>
+<img src="Part_1.jpg" alt="Part 1" width="500" height="300">
+<img src="Part_2.jpg" alt="Part 2" width="400" height="500">
+<img src="Part_3.jpg" alt="Part 3" width="700" height="300">
+<img src="Part_4.jpg" alt="Part 4" width="450" height="300">
 
-    <input type="radio" onchange="functionThree()" id="option2" name="Fancify">
-    <label for="option2">BoringBetty</label>
-    
-    <br>
-    <button onclick = "functionFour()">Moo</button>
+<p style = "font-size:160%;">PL Assigment 4</p>
+<p>EXP ::= EXP + TERM | EXP - TERM | TERM</p>
+<p>TERM ::= TERM * FACTOR | TERM / FACTOR | FACTOR</p>
+<p>FACTOR ::= ( EXP ) | DIGIT</p>
+<p>DIGIT ::= 0 | 1 | 2 | 3</p>
+<p style = "font-size:130%;">Instructions:</p>
+<p>Examples of valid strings: 1-2*2$, 0-3*2$, 2/(3+1)$</p>
+<p>Examples of invalid strings: 1+2, 1*4$, 1*a$</p>
+<p>Enter strings using the numbers 0 to 3, and</p>
+<p>the symbols +, -, *, /, (, and ).</p>
+<p>When you click on "submit", it will check whether the entered string is valid or invalid for the given grammar.</p>
 
+<p>Input String:
+<input type="text" id = "myText" value = "">
+<button onclick="myFunction()">Submit</button></p>
 
-  </fieldset>
+<p id="PLAssignment4"></p>
+<script>
+function myFunction()
+{
+   var inputString  = document.getElementById("myText").value;
+   var pointerInString = 0;
+   var resultString = true;
+   var stringLength = inputString.length - 1;
+   var endOfString = inputString.substr(stringLength);
+   var x = inputString.charAt(pointerInString);
+ 
+   if(endOfString != "$")
+   {
+      resultString = false;
+   } 
+   while(pointerInString < stringLength && resultString)
+   {
+      x = inputString.charAt(pointerInString);
+      exp();
+   }
 
+   if(resultString == true)
+   {
+      alert("Valid");
+   }
+   else
+   {
+      alert("Invalid");
+   }
 
+   function exp()
+   {
+     do
+     {
+          if(x == "+" || x == "-")
+          {
+               match("$");
+          }
+
+          term();
+     }
+     while(x == "+" || x == "-");
+     if(pointerInString == stringLength)
+     {
+          match("$");
+     }
+   }
+   function term()
+   {
+     do
+     {
+          if(x == "*" || x == "/")
+          {
+               match("$");
+          }
+          factor();
+     }
+     while(x == "*" || x == "/");
+   }
+   function factor()
+   {
+     if(x == "(")
+     {
+          match("(");
+          exp();
+          if(x == ")")
+          {
+               match(")");
+          }
+          else
+          {
+               resultString = false;
+          }
+          var a = inputString.charAt(pointerInString - 1);
+          var b = inputString.charAt(pointerInString);
+          if(a == ")" && b == "(")
+          {
+               resultString = false;
+          }
+
+     }
+     else if(x == 0 || x == 1 || x == 2 || x == 3)
+     {
+          digit();
+     }
+     else
+     {
+         x = inputString.charAt(pointerInString++);
+         resultString = false;
+     }
+   }
+   function digit()
+   {
+     if(x == 0)
+     {
+          match(0);
+     }
+     else if(x == 1)
+     {
+          match(1);
+     }
+     else if(x == 2)
+     {
+          match(2);
+     }
+     else if(x == 3)
+     {
+          match(3);
+     }
+     else
+     {
+          resultString = false;
+     }
+   }
+   function match(z)
+   {
+     if(z == 0 || z == 1 || z == 2 || z == 3 || z == "$" || z == "(" || z == ")")
+     {
+          pointerInString++;
+          x = inputString.charAt(pointerInString);
+     }
+     else
+     {
+          resultString = false;
+     }
+     var a = inputString.charAt(pointerInString - 1);
+     var b = inputString.charAt(pointerInString);
+     if((a == 0 || a == 1 || a == 2 || a == 3) && (b == 0 || b == 1 || b == 2 || b == 3))
+     {
+          resultString = false;
+     }
+   }
+}
+</script>
+<p style = "font-size:160%">Report</p>
+<a href = "PLAssignment4.pdf">PL Assignment 4 report</a>
+<p style = "font-size:130%">References</p>
+<p>The definitions for syntax, semantics, parsing, and parser are from <a href="http://homepage.cs.uiowa.edu/~slonnegr/plf/Book/Chapter1.pdf">http://homepage.cs.uiowa.edu/~slonnegr/plf/Book/Chapter1.pdf</a>.</p>
+<p>The definition for lexical scanning is from <a href="https://www.tutorialspoint.com/compiler_design/compiler_design_lexical_analysis.htm">https://www.tutorialspoint.com/compiler_design/compiler_design_lexical_analysis.htm</a>.</p>
 </body>
 </html>
